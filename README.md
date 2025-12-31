@@ -1,4 +1,4 @@
-# AI Agent框架技术文章目录
+# AI Agent FrameWork 框架技术文章目录
 
 ---
 
@@ -10,7 +10,6 @@
 
 - **视频教程（B站）：** [AI Agent框架实战](https://www.bilibili.com/cheese/play/ep2187729)
 - **视频教程（Udemy）：** [AI Agent Framework Course](https://www.udemy.com/course/ai-agent-framework/)
-
 
 ---
 
@@ -133,24 +132,9 @@
 
 ---
 
-## 🤝 贡献指南
-
-欢迎提交Issue和PR：
-- 发现文章错误或不清晰的地方
-- 补充更多实战案例
-- 优化代码示例
-- 翻译成其他语言
-
----
-
 ## 📝 更新日志
-
-- **2024-12-28：** 完成全部30篇文章初稿
-- **2024-12-31：** 更新模型为llama3.2:latest，统一.gitignore配置
 - **持续更新中...**
 
 ---
 
 **⭐ 如果这些文章对你有帮助，欢迎Star支持！**
-
-**💬 欢迎交流：** 如有问题欢迎在评论区讨论 🚀
