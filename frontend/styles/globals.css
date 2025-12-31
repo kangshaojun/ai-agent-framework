@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    src:
+      local('Arial'),
+      local('Arial'),
+      url(/fonts/Arial.ttf) format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 500;
+    src:
+      local('Arial'),
+      local('Arial'),
+      url(/fonts/Arial.ttf) format('opentype');
+    font-display: swap;
+  }
+  html {
+    touch-action: pan-y;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    font-family:
+      CircularStd,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      'Noto Sans',
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol',
+      'Noto Color Emoji';
+  }
+}
