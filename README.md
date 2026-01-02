@@ -13,7 +13,7 @@
 
 ---
 
-本目录包含30篇技术文章，全面介绍AI Agent框架的设计、开发和部署。
+本目录包含25篇技术文章，全面介绍AI Agent框架的设计、开发和部署。
 
 ---
 
@@ -27,53 +27,48 @@
 
 ---
 
-## 🎨 系列二：前端开发实战（5篇）
+## 🎨 系列二：前端开发实战（4篇）
 
 6. [Next.js 13构建现代化AI聊天界面](./doc/02-前端开发实战/06-Next.js-13构建现代化AI聊天界面.md)
 7. [TailwindCSS打造优雅的对话UI组件](./doc/02-前端开发实战/07-TailwindCSS打造优雅的对话UI组件.md)
-8. [TypeScript类型安全：前端与后端的契约设计](./doc/02-前端开发实战/08-TypeScript类型安全：前端与后端的契约设计.md)
-9. [SSE流式传输：实现打字机效果的AI回复](./doc/02-前端开发实战/09-SSE流式传输：实现打字机效果的AI回复.md)
-10. [JWT认证在Next.js中的最佳实践](./doc/02-前端开发实战/10-JWT认证在Next.js中的最佳实践.md)
+8. [SSE流式传输：实现打字机效果的AI回复](./doc/02-前端开发实战/08-SSE流式传输：实现打字机效果的AI回复.md)
+9. [JWT认证在Next.js中的最佳实践](./doc/02-前端开发实战/09-JWT认证在Next.js中的最佳实践.md)
 
 ---
 
 ## ⚙️ 系列三：后端服务开发（5篇）
 
-11. [FastAPI异步编程：高性能API服务的秘密](./doc/03-后端服务开发/11-FastAPI异步编程：高性能API服务的秘密.md)
-12. [SQLAlchemy 2.0异步ORM实战指南](./doc/03-后端服务开发/12-SQLAlchemy-2.0异步ORM实战指南.md)
-13. [Redis缓存策略：提升API响应速度10倍](./doc/03-后端服务开发/13-Redis缓存策略：提升API响应速度10倍.md)
-14. [JWT双Token机制：access_token + refresh_token实现](./doc/03-后端服务开发/14-JWT双Token机制：access_token+refresh_token实现.md)
-15. [Alembic数据库迁移：团队协作的最佳实践](./doc/03-后端服务开发/15-Alembic数据库迁移：团队协作的最佳实践.md)
+10. [FastAPI异步编程：高性能API服务的秘密](./doc/03-后端服务开发/10-FastAPI异步编程：高性能API服务的秘密.md)
+11. [SQLAlchemy 2.0异步ORM实战指南](./doc/03-后端服务开发/11-SQLAlchemy-2.0异步ORM实战指南.md)
+12. [Redis缓存策略：提升API响应速度10倍](./doc/03-后端服务开发/12-Redis缓存策略：提升API响应速度10倍.md)
+13. [JWT双Token机制：access_token + refresh_token实现](./doc/03-后端服务开发/13-JWT双Token机制：access_token+refresh_token实现.md)
+14. [Alembic数据库迁移：团队协作的最佳实践](./doc/03-后端服务开发/14-Alembic数据库迁移：团队协作的最佳实践.md)
 
 ---
 
-## 🤖 系列四：AI Agent核心技术（8篇）
+## 🤖 系列四：AI Agent核心技术（5篇）
 
-16. [LangChain入门：构建你的第一个RAG应用](./doc/04-AI-Agent核心技术/16-LangChain入门：构建你的第一个RAG应用.md)
-17. [向量数据库Weaviate：语义搜索的底层原理](./doc/04-AI-Agent核心技术/17-向量数据库Weaviate：语义搜索的底层原理.md)
-18. [Embedding技术详解：文本如何变成数字向量](./doc/04-AI-Agent核心技术/18-Embedding技术详解：文本如何变成数字向量.md)
-19. [Ollama本地部署：llama3.2模型的实战应用](./doc/04-AI-Agent核心技术/19-Ollama本地部署：qwen2.5模型的实战应用.md)
-20. [Prompt工程：从模板到动态组装的最佳实践](./doc/04-AI-Agent核心技术/20-Prompt工程：从模板到动态组装的最佳实践.md)
-21. [RAG检索增强生成：让AI拥有专业知识](./doc/04-AI-Agent核心技术/21-RAG检索增强生成：让AI拥有专业知识.md)
-22. [Pandas数据清洗：为向量化做准备](./doc/04-AI-Agent核心技术/22-Pandas数据清洗：为向量化做准备.md)
-23. [LCEL问答链：构建流式AI对话系统](./doc/04-AI-Agent核心技术/23-LCEL问答链：构建流式AI对话系统.md)
+15. [LangChain入门：构建你的第一个RAG应用](./doc/04-AI-Agent核心技术/15-LangChain入门：构建你的第一个RAG应用.md)
+16. [向量数据库Weaviate：语义搜索的底层原理](./doc/04-AI-Agent核心技术/16-向量数据库Weaviate：语义搜索的底层原理.md)
+17. [Ollama本地部署：llama3.2模型的实战应用](./doc/04-AI-Agent核心技术/17-Ollama本地部署：qwen2.5模型的实战应用.md)
+18. [RAG检索增强生成：让AI拥有专业知识](./doc/04-AI-Agent核心技术/18-RAG检索增强生成：让AI拥有专业知识.md)
+19. [LCEL问答链：构建流式AI对话系统](./doc/04-AI-Agent核心技术/19-LCEL问答链：构建流式AI对话系统.md)
 
 ---
 
 ## 🔧 系列五：DevOps与部署（4篇）
 
-24. [Docker容器化：一键部署完整AI系统](./doc/05-DevOps与部署/24-Docker容器化：一键部署完整AI系统.md)
-25. [Loguru日志系统：分布式应用的调试利器](./doc/05-DevOps与部署/25-Loguru日志系统：分布式应用的调试利器.md)
-26. [生产环境配置：环境变量与安全管理](./doc/05-DevOps与部署/26-生产环境配置：环境变量与安全管理.md)
-27. [性能优化：从响应时间到并发处理](./doc/05-DevOps与部署/27-性能优化：从响应时间到并发处理.md)
+20. [Docker容器化：一键部署完整AI系统](./doc/05-DevOps与部署/20-Docker容器化：一键部署完整AI系统.md)
+21. [Loguru日志系统：分布式应用的调试利器](./doc/05-DevOps与部署/21-Loguru日志系统：分布式应用的调试利器.md)
+22. [生产环境配置：环境变量与安全管理](./doc/05-DevOps与部署/22-生产环境配置：环境变量与安全管理.md)
+23. [性能优化：从响应时间到并发处理](./doc/05-DevOps与部署/23-性能优化：从响应时间到并发处理.md)
 
 ---
 
-## 💼 系列六：实战应用场景（3篇）
+## 💼 系列六：实战应用场景（2篇）
 
-28. [客服工单系统实战（一）：CSV数据导入与向量化存储](./doc/06-实战应用场景/28-客服工单系统实战（一）：CSV数据导入与向量化存储.md)
-29. [客服工单系统实战（二）：RAG检索与智能问答](./doc/06-实战应用场景/29-客服工单系统实战（二）：RAG检索与智能问答.md)
-30. [客服工单系统实战（三）：前后端集成与生产部署](./doc/06-实战应用场景/30-客服工单系统实战（三）：前后端集成与生产部署.md)
+24. [客服工单系统实战（一）：CSV数据导入与向量化存储](./doc/06-实战应用场景/24-客服工单系统实战（一）：CSV数据导入与向量化存储.md)
+25. [客服工单系统实战（二）：RAG检索与智能问答](./doc/06-实战应用场景/25-客服工单系统实战（二）：RAG检索与智能问答.md)
 
 ---
 
