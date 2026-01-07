@@ -18,14 +18,14 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex flex-col">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-blue-6 rounded-xl flex items-center justify-center">
-                <BotIcon size={24} className="text-white" />
+                <BotIcon size={24} className="text-white" style={{ color: '#ffffff' }} />
               </div>
               <span className="text-2xl font-bold text-gray-10">客服助手</span>
             </div>
@@ -39,8 +39,9 @@ export default function HomePage() {
               <button
                 onClick={() => router.push('/register')}
                 className="px-4 py-2 bg-blue-6 rounded-lg hover:bg-blue-7 transition-colors font-medium"
+                style={{ color: '#ffffff' }}
               >
-                <span className="text-white">注册</span>
+                注册
               </button>
             </div>
           </div>
@@ -54,11 +55,11 @@ export default function HomePage() {
             {/* Main Icon */}
             <div className="flex justify-center mb-8">
               <div className="relative">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-6 to-purple-6 rounded-3xl flex items-center justify-center shadow-2xl">
-                  <BotIcon size={48} className="text-white" />
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-6 to-blue-7 rounded-3xl flex items-center justify-center shadow-2xl">
+                  <BotIcon size={48} className="text-white" style={{ color: '#ffffff' }} />
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-5 rounded-full flex items-center justify-center animate-pulse">
-                  <SparklesIcon size={16} className="text-white" />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-5 rounded-full flex items-center justify-center animate-pulse">
+                  <SparklesIcon size={16} className="text-white" style={{ color: '#ffffff' }} />
                 </div>
               </div>
             </div>
@@ -66,7 +67,7 @@ export default function HomePage() {
             {/* Title */}
             <h1 className="text-5xl sm:text-6xl font-bold text-gray-10 mb-6">
               客服知识库
-              <span className="bg-gradient-to-r from-blue-6 to-purple-6 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-6 to-blue-7 bg-clip-text text-transparent">
                 {' '}智能助手
               </span>
             </h1>
@@ -80,10 +81,11 @@ export default function HomePage() {
             {/* CTA Button */}
             <button
               onClick={handleStartChat}
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-6 to-purple-6 text-white text-lg font-semibold rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-6 to-blue-7 text-lg font-semibold rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              style={{ color: '#ffffff' }}
             >
-              <MessageSquareIcon size={24} className="text-white" />
-              <span className="text-white">开始对话</span>
+              <MessageSquareIcon size={24} />
+              <span>开始对话</span>
             </button>
 
             {/* Features */}
@@ -103,8 +105,8 @@ export default function HomePage() {
 
               {/* Feature 2 */}
               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-purple-1 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <SparklesIcon size={28} className="text-purple-6" />
+                <div className="w-14 h-14 bg-blue-1 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                  <SparklesIcon size={28} className="text-blue-6" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-10 mb-3">
                   知识沉淀
@@ -116,8 +118,8 @@ export default function HomePage() {
 
               {/* Feature 3 */}
               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-green-1 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <MessageSquareIcon size={28} className="text-green-6" />
+                <div className="w-14 h-14 bg-blue-1 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                  <MessageSquareIcon size={28} className="text-blue-6" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-10 mb-3">
                   专业建议

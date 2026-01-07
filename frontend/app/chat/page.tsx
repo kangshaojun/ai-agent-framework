@@ -15,7 +15,6 @@ import {
 } from '@/services/chat'
 import {
   PlusIcon,
-  SendIcon,
   TrashIcon,
   MessageSquareIcon,
   LogOutIcon,
@@ -520,29 +519,19 @@ export default function ChatPage() {
                     }`}
                   >
                     {/* Avatar */}
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        msg.role === 'user' ? 'bg-blue-6' : 'bg-gray-4'
-                      }`}
-                    >
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-4">
                       {msg.role === 'user' ? (
-                        <UserIcon size={16} className="text-white" />
+                        <UserIcon size={16} className="text-gray-7" />
                       ) : (
                         <BotIcon size={16} className="text-gray-7" />
                       )}
                     </div>
                     {/* Message Content */}
-                    <div
-                      className={`px-4 py-3 rounded-2xl ${
-                        msg.role === 'user'
-                          ? 'bg-blue-6 text-white'
-                          : 'bg-white border border-gray-4 text-gray-10'
-                      }`}
-                    >
+                    <div className="px-4 py-3 rounded-2xl bg-white border border-gray-4">
                       {msg.thinking ? (
                         <ThinkingIndicator />
                       ) : (
-                        <div className="text-sm whitespace-pre-wrap break-words">
+                        <div className="text-sm whitespace-pre-wrap break-words text-gray-10">
                           {msg.content}
                         </div>
                       )}
@@ -559,22 +548,25 @@ export default function ChatPage() {
         {currentConversation && (
           <div className="bg-white border-t border-gray-4 p-4">
             <div className="max-w-3xl mx-auto">
-              <div className="flex items-end space-x-3 bg-gray-2 rounded-2xl p-3 border border-gray-4 focus-within:border-blue-6 transition-colors">
+              <div className="flex items-center space-x-3 bg-gray-2 rounded-2xl p-3 border border-gray-4 focus-within:border-blue-6 transition-colors">
                 <textarea
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="在 My 发送消息..."
-                  className="flex-1 bg-transparent resize-none outline-none text-sm text-gray-10 placeholder-gray-7 max-h-32"
+                  placeholder="发送消息..."
+                  className="flex-1 bg-transparent resize-none outline-none text-sm text-gray-10 placeholder-gray-7 max-h-32 py-1"
                   rows={1}
                   disabled={isSending}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isSending}
-                  className="p-2.5 bg-blue-6 text-white rounded-xl hover:bg-blue-7 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+                  className="px-4 py-2.5 bg-blue-6 rounded-xl hover:bg-blue-7 disabled:bg-gray-5 disabled:cursor-not-allowed transition-colors flex-shrink-0 font-medium"
+                  style={{ 
+                    color: (!inputValue.trim() || isSending) ? '#8c8c8c' : '#ffffff' 
+                  }}
                 >
-                  <SendIcon size={18} />
+                  Send
                 </button>
               </div>
               <p className="text-xs text-gray-7 text-center mt-2">
