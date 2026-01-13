@@ -320,12 +320,15 @@ export default function ChatPage() {
         {/* Sidebar Header */}
         <div className="p-4 border-b border-gray-4">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2">
+            <button 
+              onClick={() => router.push('/')}
+              className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+            >
               <div className="w-8 h-8 bg-blue-6 rounded-lg flex items-center justify-center">
                 <span className="text-gray-1 font-bold text-sm">AI</span>
               </div>
               <span className="font-semibold text-gray-10">My</span>
-            </div>
+            </button>
             <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden p-1 hover:bg-gray-3 rounded"

@@ -1,11 +1,31 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { isAuthenticated } from '@/services/auth'
-import { BotIcon, MessageSquareIcon, SparklesIcon, ZapIcon } from '@/ui/Icons'
+import { isAuthenticated, getCurrentUser, logout, User } from '@/services/auth'
+import { BotIcon, MessageSquareIcon, SparklesIcon, ZapIcon, LogOutIcon } from '@/ui/Icons'
 
 export default function HomePage() {
   const router = useRouter()
+  const [user, setUser] = useState<User | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    // 检测登录状态
+    const checkAuth = async () => {
+      if (isAuthenticated()) {
+        try {
+          const userData = await getCurrentUser()
+          setUser(userData)
+          setIsLoggedIn(true)
+        } catch (error) {
+          console.error('获取用户信息失败:', error)
+          setIsLoggedIn(false)
+        }
+      }
+    }
+    checkAuth()
+  }, [])
 
   const handleStartChat = () => {
     // 检查是否已登录
@@ -15,6 +35,12 @@ export default function HomePage() {
       // 未登录，跳转到登录页面
       router.push('/login')
     }
+  }
+
+  const handleLogout = () => {
+    logout()
+    setUser(null)
+    setIsLoggedIn(false)
   }
 
   return (
@@ -30,19 +56,38 @@ export default function HomePage() {
               <span className="text-2xl font-bold text-gray-10">客服助手</span>
             </div>
             <div className="flex items-center space-x-4">
-              <button
-                onClick={() => router.push('/login')}
-                className="px-4 py-2 text-gray-10 hover:text-blue-6 transition-colors font-medium"
-              >
-                登录
-              </button>
-              <button
-                onClick={() => router.push('/register')}
-                className="px-4 py-2 bg-blue-6 rounded-lg hover:bg-blue-7 transition-colors font-medium"
-                style={{ color: '#ffffff' }}
-              >
-                注册
-              </button>
+              {isLoggedIn ? (
+                // 已登录：显示用户信息和退出按钮
+                <>
+                  <span className="text-sm text-gray-10">
+                    {user?.full_name || user?.username}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 text-gray-10 hover:text-blue-6 transition-colors font-medium flex items-center space-x-2"
+                  >
+                    <LogOutIcon size={16} />
+                    <span>退出</span>
+                  </button>
+                </>
+              ) : (
+                // 未登录：显示登录和注册按钮
+                <>
+                  <button
+                    onClick={() => router.push('/login')}
+                    className="px-4 py-2 text-gray-10 hover:text-blue-6 transition-colors font-medium"
+                  >
+                    登录
+                  </button>
+                  <button
+                    onClick={() => router.push('/register')}
+                    className="px-4 py-2 bg-blue-6 rounded-lg hover:bg-blue-7 transition-colors font-medium"
+                    style={{ color: '#ffffff' }}
+                  >
+                    注册
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -85,7 +130,7 @@ export default function HomePage() {
               style={{ color: '#ffffff' }}
             >
               <MessageSquareIcon size={24} />
-              <span>开始对话</span>
+              <span>{isLoggedIn ? '进入聊天' : '开始对话'}</span>
             </button>
 
             {/* Features */}
