@@ -18,7 +18,7 @@ class ConversationDAO:
     async def create_conversation(
         self,
         user_id: int,
-        title: str = "新对话",
+        title: str = "New Chat",
     ) -> Conversation:
         """
         Create a new conversation.

@@ -17,7 +17,7 @@ export const ThinkingIndicator: React.FC = () => {
           style={{ animationDelay: '300ms' }}
         />
       </div>
-      <span className="text-sm">正在思考...</span>
+      <span className="text-sm">Thinking...</span>
     </div>
   )
 }

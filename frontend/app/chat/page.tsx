@@ -62,7 +62,7 @@ export default function ChatPage() {
         const convs = await getConversations()
         setConversations(convs)
       } catch (error) {
-        console.error('获取数据失败:', error)
+        console.error('Failed to fetch data:', error)
         router.push('/login')
       } finally {
         setLoading(false)
@@ -94,13 +94,13 @@ export default function ChatPage() {
   const handleNewChat = async () => {
     try {
       const newConv = await createConversation({
-        title: '新对话',
+        title: 'New Chat',
       })
       setConversations([newConv, ...conversations])
       setCurrentConversation(newConv)
       setMessages([])
     } catch (error) {
-      console.error('创建对话失败:', error)
+      console.error('Failed to create conversation:', error)
     }
   }
 
@@ -110,7 +110,7 @@ export default function ChatPage() {
       const msgs = await getMessages(conv.id)
       setMessages(msgs)
     } catch (error) {
-      console.error('获取消息失败:', error)
+      console.error('Failed to fetch messages:', error)
     }
   }
 
@@ -131,7 +131,7 @@ export default function ChatPage() {
         setMessages([])
       }
     } catch (error) {
-      console.error('删除对话失败:', error)
+      console.error('Failed to delete conversation:', error)
     } finally {
       setDeleteConfirmOpen(false)
       setConversationToDelete(null)
@@ -166,7 +166,7 @@ export default function ChatPage() {
         setCurrentConversation({ ...currentConversation, title: editingTitle.trim() })
       }
     } catch (error) {
-      console.error('更新标题失败:', error)
+      console.error('Failed to update title:', error)
     } finally {
       setEditingId(null)
     }
@@ -267,14 +267,14 @@ export default function ChatPage() {
             setIsSending(false)
         },
         onError: (error) => {
-            console.error('流式消息错误:', error)
+            console.error('Streaming message error:', error)
             // 显示错误消息
             setMessages((prev) =>
               prev.map((m) =>
                 m.id === assistantMsgId
                   ? {
                       ...m,
-                      content: error.msg || '抱歉，AI 服务暂时不可用',
+                      content: error.msg || 'Sorry, AI service is temporarily unavailable',
                       thinking: false,
                     }
                   : m
@@ -285,7 +285,7 @@ export default function ChatPage() {
       }
     )
     } catch(error){
-      console.error('发送消息失败:', error)
+      console.error('Failed to send message:', error)
       // 移除思考消息
       setMessages((prev) => prev.filter((m) => m.id !== assistantMsgId))
       setIsSending(false)
@@ -341,7 +341,7 @@ export default function ChatPage() {
             className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-blue-6 text-white rounded-lg hover:bg-blue-7 transition-colors"
           >
             <PlusIcon size={18} className="text-gray-1" />
-            <span className="font-medium text-gray-1">新建对话</span>
+            <span className="font-medium text-gray-1">New Chat</span>
           </button>
         </div>
 
@@ -349,7 +349,7 @@ export default function ChatPage() {
         <div className="flex-1 overflow-y-auto p-2">
           {conversations.length === 0 ? (
             <div className="text-center text-gray-7 text-sm py-8">
-              暂无对话记录
+              No conversations yet
             </div>
           ) : (
             conversations.map((conv) => (
@@ -415,7 +415,7 @@ export default function ChatPage() {
                           className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-2 text-gray-10 text-base"
                         >
                           <EditIcon size={16} />
-                          <span>重命名</span>
+                          <span>Rename</span>
                         </button>
                         <button
                           onClick={(e) => {
@@ -426,7 +426,7 @@ export default function ChatPage() {
                           className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-red-1 text-red-6 text-base"
                         >
                           <TrashIcon size={16} />
-                          <span>删除</span>
+                          <span>Delete</span>
                         </button>
                       </div>
                     )}
@@ -472,7 +472,7 @@ export default function ChatPage() {
             </button>
           )}
           <h1 className="text-lg font-semibold text-gray-10">
-            {currentConversation?.title || '选择或创建对话'}
+            {currentConversation?.title || 'Select or create a chat'}
           </h1>
         </div>
 
@@ -484,17 +484,17 @@ export default function ChatPage() {
                 <BotIcon size={32} className="text-blue-6" />
               </div>
               <h2 className="text-2xl font-semibold text-gray-10 mb-2">
-                今天有什么可以帮到你？
+                How can I help you today?
               </h2>
               <p className="text-gray-7 mb-6">
-                点击&ldquo;新建对话&rdquo;开始与 AI 助手交流
+                Click &ldquo;New Chat&rdquo; to start chatting with AI assistant
               </p>
               <button
                 onClick={handleNewChat}
                 className="flex items-center space-x-2 px-6 py-3 bg-blue-6 text-white rounded-lg hover:bg-blue-7 transition-colors"
               >
                 <PlusIcon size={18} className="text-gray-1" />
-                <span className="text-gray-1">新建对话</span>
+                <span className="text-gray-1">New Chat</span>
               </button>
             </div>
           ) : messages.length === 0 ? (
@@ -503,9 +503,9 @@ export default function ChatPage() {
                 <MessageSquareIcon size={32} className="text-blue-6" />
               </div>
               <h2 className="text-xl font-semibold text-gray-10 mb-2">
-                开始新对话
+                Start New Chat
               </h2>
-              <p className="text-gray-7">在下方输入框中输入你的问题</p>
+              <p className="text-gray-7">Enter your question in the input box below</p>
             </div>
           ) : (
             <div className="max-w-3xl mx-auto px-4 py-6">
@@ -556,7 +556,7 @@ export default function ChatPage() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="发送消息..."
+                  placeholder="Send a message..."
                   className="flex-1 bg-transparent resize-none outline-none text-sm text-gray-10 placeholder-gray-7 max-h-32 py-1"
                   rows={1}
                   disabled={isSending}
@@ -573,7 +573,7 @@ export default function ChatPage() {
                 </button>
               </div>
               <p className="text-xs text-gray-7 text-center mt-2">
-                AI 回答可能不准确，请谨慎使用
+                AI responses may be inaccurate, please use with caution
               </p>
             </div>
           </div>
@@ -594,23 +594,23 @@ export default function ChatPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-lg font-semibold text-gray-10 mb-2">
-              永久删除对话
+              Permanently Delete Conversation
             </h3>
             <p className="text-gray-7 text-sm mb-6">
-              删除后，该对话将不可恢复。确认删除吗？
+              Once deleted, this conversation cannot be recovered. Confirm deletion?
             </p>
             <div className="flex justify-end space-x-3">
               <button
                 onClick={handleCancelDelete}
                 className="px-4 py-2 text-gray-10 hover:bg-gray-3 rounded-lg transition-colors font-medium"
               >
-                取消
+                Cancel
               </button>
               <button
                 onClick={handleConfirmDelete}
                 className="px-4 py-2 bg-red-6 text-white rounded-lg hover:bg-red-7 transition-colors font-medium"
               >
-                删除
+                Delete
               </button>
             </div>
           </div>

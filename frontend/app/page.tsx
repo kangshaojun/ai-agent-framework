@@ -19,7 +19,7 @@ export default function HomePage() {
           setUser(userData)
           setIsLoggedIn(true)
         } catch (error) {
-          console.error('获取用户信息失败:', error)
+          console.error('Failed to get user info:', error)
           setIsLoggedIn(false)
         }
       }
@@ -53,7 +53,7 @@ export default function HomePage() {
               <div className="w-10 h-10 bg-blue-6 rounded-xl flex items-center justify-center">
                 <BotIcon size={24} className="text-white" style={{ color: '#ffffff' }} />
               </div>
-              <span className="text-2xl font-bold text-gray-10">客服助手</span>
+              <span className="text-2xl font-bold text-gray-10">AI Assistant</span>
             </div>
             <div className="flex items-center space-x-4">
               {isLoggedIn ? (
@@ -67,7 +67,7 @@ export default function HomePage() {
                     className="px-4 py-2 text-gray-10 hover:text-blue-6 transition-colors font-medium flex items-center space-x-2"
                   >
                     <LogOutIcon size={16} />
-                    <span>退出</span>
+                    <span>Logout</span>
                   </button>
                 </>
               ) : (
@@ -77,14 +77,14 @@ export default function HomePage() {
                     onClick={() => router.push('/login')}
                     className="px-4 py-2 text-gray-10 hover:text-blue-6 transition-colors font-medium"
                   >
-                    登录
+                    Login
                   </button>
                   <button
                     onClick={() => router.push('/register')}
                     className="px-4 py-2 bg-blue-6 rounded-lg hover:bg-blue-7 transition-colors font-medium"
                     style={{ color: '#ffffff' }}
                   >
-                    注册
+                    Register
                   </button>
                 </>
               )}
@@ -111,16 +111,18 @@ export default function HomePage() {
 
             {/* Title */}
             <h1 className="text-5xl sm:text-6xl font-bold text-gray-10 mb-6">
-              客服知识库
+              Enterprise AI
               <span className="bg-gradient-to-r from-blue-6 to-blue-7 bg-clip-text text-transparent">
-                {' '}智能助手
+                {' '}Platform
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl text-gray-7 mb-12 max-w-2xl mx-auto">
-              基于 RAG 技术，整合历史工单知识，帮助客服人员快速查找问题解决方案。
-              提升服务效率，保证服务质量的一致性。
+              On-Premise Solutions for Data-Sensitive Industries
+            </p>
+            <p className="text-base text-gray-7 mb-12 max-w-3xl mx-auto">
+              Deploy AI-powered solutions within your own infrastructure. Designed for banking, healthcare, insurance, government, education, legal services, and other data-sensitive industries. Your data stays secure and compliant.
             </p>
 
             {/* CTA Button */}
@@ -130,7 +132,7 @@ export default function HomePage() {
               style={{ color: '#ffffff' }}
             >
               <MessageSquareIcon size={24} />
-              <span>{isLoggedIn ? '进入聊天' : '开始对话'}</span>
+              <span>{isLoggedIn ? 'Enter Chat' : 'Start Chat'}</span>
             </button>
 
             {/* Features */}
@@ -141,10 +143,10 @@ export default function HomePage() {
                   <ZapIcon size={28} className="text-blue-6" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-10 mb-3">
-                  快速检索
+                  Data Security
                 </h3>
                 <p className="text-gray-7">
-                  基于向量数据库，秒级检索相关工单，快速获取解决方案
+                  Complete control over your sensitive data with air-gapped deployment options
                 </p>
               </div>
 
@@ -154,10 +156,10 @@ export default function HomePage() {
                   <SparklesIcon size={28} className="text-blue-6" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-10 mb-3">
-                  知识沉淀
+                  Intelligent Search
                 </h3>
                 <p className="text-gray-7">
-                  自动学习历史工单经验，持续优化服务标准和流程
+                  Powered by RAG technology and vector database for instant semantic search and accurate results
                 </p>
               </div>
 
@@ -167,10 +169,10 @@ export default function HomePage() {
                   <MessageSquareIcon size={28} className="text-blue-6" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-10 mb-3">
-                  专业建议
+                  Private Deployment
                 </h3>
                 <p className="text-gray-7">
-                  基于真实案例提供处理建议，确保服务质量一致性
+                  Deploy within your infrastructure, ensuring data sovereignty and enterprise security
                 </p>
               </div>
             </div>
@@ -182,7 +184,7 @@ export default function HomePage() {
       <footer className="py-8 bg-white/50 backdrop-blur-sm border-t border-gray-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-7 text-sm">
-            © 客服知识库助手. Powered by RAG & AI technology.
+            © AI Assistant. Powered by RAG & AI technology.
           </p>
         </div>
       </footer>

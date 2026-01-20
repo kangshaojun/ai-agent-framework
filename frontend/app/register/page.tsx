@@ -23,12 +23,12 @@ export default function RegisterPage() {
 
     // 验证密码
     if (formData.password !== formData.confirmPassword) {
-      setError('两次输入的密码不一致')
+      setError('Passwords do not match')
       return
     }
 
     if (formData.password.length < 6) {
-      setError('密码长度至少为 6 位')
+      setError('Password must be at least 6 characters')
       return
     }
 
@@ -43,10 +43,10 @@ export default function RegisterPage() {
       })
 
       // 注册成功，跳转到登录页
-      alert('注册成功！请登录')
+      alert('Registration successful! Please sign in')
       router.push('/login')
     } catch (err) {
-      setError(err instanceof Error ? err.message : '注册失败，请重试')
+      setError(err instanceof Error ? err.message : 'Registration failed, please try again')
     } finally {
       setLoading(false)
     }
@@ -67,8 +67,8 @@ export default function RegisterPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-6 rounded-2xl mb-4">
             <BotIcon size={32} className="text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-10 mb-2">创建账号</h1>
-          <p className="text-gray-7">开始使用 DeepSeek AI 助手</p>
+          <h1 className="text-3xl font-bold text-gray-10 mb-2">Create Account</h1>
+          <p className="text-gray-7">Start using AI Assistant</p>
         </div>
 
         {/* Register Form */}
@@ -85,7 +85,7 @@ export default function RegisterPage() {
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                用户名 <span className="text-red-6">*</span>
+                Username <span className="text-red-6">*</span>
               </label>
               <input
                 id="username"
@@ -93,7 +93,7 @@ export default function RegisterPage() {
                 type="text"
                 required
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="请输入用户名"
+                placeholder="Enter your username"
                 value={formData.username}
                 onChange={handleChange}
                 disabled={loading}
@@ -105,7 +105,7 @@ export default function RegisterPage() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                邮箱 <span className="text-red-6">*</span>
+                Email <span className="text-red-6">*</span>
               </label>
               <input
                 id="email"
@@ -113,7 +113,7 @@ export default function RegisterPage() {
                 type="email"
                 required
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="请输入邮箱"
+                placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
                 disabled={loading}
@@ -125,14 +125,14 @@ export default function RegisterPage() {
                 htmlFor="full_name"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                姓名 <span className="text-gray-7 text-xs">(可选)</span>
+                Full Name <span className="text-gray-7 text-xs">(Optional)</span>
               </label>
               <input
                 id="full_name"
                 name="full_name"
                 type="text"
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="请输入姓名"
+                placeholder="Enter your full name"
                 value={formData.full_name}
                 onChange={handleChange}
                 disabled={loading}
@@ -144,7 +144,7 @@ export default function RegisterPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                密码 <span className="text-red-6">*</span>
+                Password <span className="text-red-6">*</span>
               </label>
               <input
                 id="password"
@@ -152,7 +152,7 @@ export default function RegisterPage() {
                 type="password"
                 required
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="至少 6 位密码"
+                placeholder="At least 6 characters"
                 value={formData.password}
                 onChange={handleChange}
                 disabled={loading}
@@ -164,7 +164,7 @@ export default function RegisterPage() {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                确认密码 <span className="text-red-6">*</span>
+                Confirm Password <span className="text-red-6">*</span>
               </label>
               <input
                 id="confirmPassword"
@@ -172,7 +172,7 @@ export default function RegisterPage() {
                 type="password"
                 required
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="再次输入密码"
+                placeholder="Enter password again"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 disabled={loading}
@@ -184,19 +184,19 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full py-3 px-4 bg-blue-6 text-gray-1 font-medium rounded-lg hover:bg-blue-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors mt-2"
             >
-              {loading ? '注册中...' : '注册'}
+              {loading ? 'Signing up...' : 'Sign Up'}
             </button>
           </form>
 
           {/* Login Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-7">
-              已有账号？{' '}
+              Already have an account?{' '}
               <a
                 href="/login"
                 className="font-medium text-blue-6 hover:text-blue-7 transition-colors"
               >
-                立即登录
+                Sign In
               </a>
             </p>
           </div>
@@ -204,7 +204,7 @@ export default function RegisterPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center text-xs text-gray-7">
-          <p>注册即表示您同意我们的服务条款和隐私政策</p>
+          <p>By signing up, you agree to our Terms of Service and Privacy Policy</p>
         </div>
       </div>
     </div>

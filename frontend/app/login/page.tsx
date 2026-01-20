@@ -25,16 +25,16 @@ export default function LoginPage() {
       router.push('/chat')
     } catch (err) {
       // 显示友好的错误提示
-      const errorMessage = err instanceof Error ? err.message : '登录失败'
+      const errorMessage = err instanceof Error ? err.message : 'Login failed'
       if (
         errorMessage.includes('用户名或密码错误') ||
         errorMessage.includes('401')
       ) {
-        setError('用户名或密码错误，请重试')
+        setError('Incorrect username or password, please try again')
       } else if (errorMessage.includes('禁用') || errorMessage.includes('403')) {
-        setError('该账号已被禁用，请联系管理员')
+        setError('This account has been disabled, please contact administrator')
       } else {
-        setError('登录失败，请稍后重试')
+        setError('Login failed, please try again later')
       }
     } finally {
       setLoading(false)
@@ -57,9 +57,9 @@ export default function LoginPage() {
             <BotIcon size={32} className="text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-10 mb-2">
-            欢迎回来
+            Welcome Back
           </h1>
-          <p className="text-gray-7">登录到 My AI 助手</p>
+          <p className="text-gray-7">Sign in to AI Assistant</p>
         </div>
 
         {/* Login Form */}
@@ -76,7 +76,7 @@ export default function LoginPage() {
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                用户名
+                Username
               </label>
               <input
                 id="username"
@@ -84,7 +84,7 @@ export default function LoginPage() {
                 type="text"
                 required
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="请输入用户名"
+                placeholder="Enter your username"
                 value={formData.username}
                 onChange={handleChange}
                 disabled={loading}
@@ -96,7 +96,7 @@ export default function LoginPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-10 mb-2"
               >
-                密码
+                Password
               </label>
               <input
                 id="password"
@@ -104,7 +104,7 @@ export default function LoginPage() {
                 type="password"
                 required
                 className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="请输入密码"
+                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
                 disabled={loading}
@@ -116,19 +116,19 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-3 px-4 bg-blue-6 text-gray-1 font-medium rounded-lg hover:bg-blue-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {loading ? '登录中...' : '登录'}
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
           {/* Register Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-7">
-              还没有账号？{' '}
+              Don't have an account?{' '}
               <a
                 href="/register"
                 className="font-medium text-blue-6 hover:text-blue-7 transition-colors"
               >
-                立即注册
+                Sign Up
               </a>
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center text-xs text-gray-7">
-          <p>登录即表示您同意我们的服务条款和隐私政策</p>
+          <p>By signing in, you agree to our Terms of Service and Privacy Policy</p>
         </div>
       </div>
     </div>
