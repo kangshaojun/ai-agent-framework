@@ -65,7 +65,7 @@ def decode_token(token: str) -> dict:
     except JWTError as e:
         raise HTTPException(
             status_code=401,
-            detail=f"无效的认证凭证: {str(e)}",
+            detail=f"Invalid authentication credentials: {str(e)}",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
@@ -82,7 +82,7 @@ def verify_token_type(payload: dict, expected_type: str) -> None:
     if token_type != expected_type:
         raise HTTPException(
             status_code=401,
-            detail=f"Token 类型错误，期望 {expected_type}，实际 {token_type}",
+            detail=f"Token type error, expected {expected_type}, got {token_type}",
             headers={"WWW-Authenticate": "Bearer"},
         )
 

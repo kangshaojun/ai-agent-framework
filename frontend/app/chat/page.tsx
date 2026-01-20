@@ -27,6 +27,7 @@ import {
   CheckIcon,
 } from '@/ui/Icons'
 import { ThinkingIndicator } from '@/ui/ThinkingIndicator'
+import { Dropdown, DropdownItem } from '@/ui/Dropdown'
 
 export default function ChatPage() {
   const router = useRouter()
@@ -41,7 +42,6 @@ export default function ChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
   const [conversationToDelete, setConversationToDelete] = useState<string | null>(null)
-  const [menuOpenId, setMenuOpenId] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editingTitle, setEditingTitle] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -86,6 +86,7 @@ export default function ChatPage() {
       editInputRef.current.select()
     }
   }, [editingId])
+
 
   const handleLogout = () => {
     logout()
@@ -146,7 +147,6 @@ export default function ChatPage() {
   const handleRenameClick = (convId: string, currentTitle: string) => {
     setEditingId(convId)
     setEditingTitle(currentTitle)
-    setMenuOpenId(null)
   }
 
   const handleSaveRename = async (convId: string) => {
@@ -391,46 +391,27 @@ export default function ChatPage() {
                     <CheckIcon size={14} className="text-green-6" />
                   </button>
                 ) : (
-                  <div className="relative flex-shrink-0">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setMenuOpenId(menuOpenId === conv.id ? null : conv.id)
-                      }}
-                      className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-4 rounded transition-opacity"
+                  <Dropdown
+                    trigger={
+                      <button className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-4 rounded transition-opacity">
+                        <MoreVerticalIcon size={14} />
+                      </button>
+                    }
+                  >
+                    <DropdownItem
+                      icon={<EditIcon size={16} />}
+                      onClick={() => handleRenameClick(conv.id, conv.title)}
                     >
-                      <MoreVerticalIcon size={14} />
-                    </button>
-                    
-                    {menuOpenId === conv.id && (
-                      <div 
-                        className="absolute right-0 top-8 rounded-lg shadow-2xl border border-gray-4 py-2 z-[9999] min-w-[140px]"
-                        style={{ backgroundColor: '#ffffff' }}
-                      >
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleRenameClick(conv.id, conv.title)
-                          }}
-                          className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-2 text-gray-10 text-base"
-                        >
-                          <EditIcon size={16} />
-                          <span>Rename</span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleDeleteClick(e, conv.id)
-                            setMenuOpenId(null)
-                          }}
-                          className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-red-1 text-red-6 text-base"
-                        >
-                          <TrashIcon size={16} />
-                          <span>Delete</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                      Rename
+                    </DropdownItem>
+                    <DropdownItem
+                      icon={<TrashIcon size={16} />}
+                      onClick={(e) => handleDeleteClick(e, conv.id)}
+                      variant="danger"
+                    >
+                      Delete
+                    </DropdownItem>
+                  </Dropdown>
                 )}
               </div>
             ))

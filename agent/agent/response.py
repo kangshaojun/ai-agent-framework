@@ -1,16 +1,16 @@
-"""Agent 统一响应格式。
+"""Agent unified response format.
 
-与 Server 保持一致的响应规范:
-- code: 业务状态码 (0=成功, 2000-2999=Agent错误)
-- msg: 提示信息
-- data: 业务数据
+Consistent response specification with Server:
+- code: Business status code (0=success, 2000-2999=Agent error)
+- msg: Message
+- data: Business data
 """
 
 from typing import Any, Dict, List, Optional
 
 
 class AgentResponse:
-    """Agent 统一响应格式。"""
+    """Agent unified response format."""
 
     @staticmethod
     def success(
@@ -18,44 +18,44 @@ class AgentResponse:
         msg: str = "success",
     ) -> Dict[str, Any]:
         """
-        成功响应。
+        Success response.
 
-        :param data: 响应数据
-        :param msg: 响应消息
-        :return: 响应字典
+        :param data: Response data
+        :param msg: Response message
+        :return: Response dict
         """
         return {"code": 0, "msg": msg, "data": data}
 
     @staticmethod
     def error(
         code: int = 2000,
-        msg: str = "Agent 服务错误",
+        msg: str = "Agent service error",
         data: Any = None,
     ) -> Dict[str, Any]:
         """
-        错误响应。
+        Error response.
 
-        :param code: 错误码 (2000-2999)
-        :param msg: 错误消息
-        :param data: 可选的错误详情
-        :return: 响应字典
+        :param code: Error code (2000-2999)
+        :param msg: Error message
+        :param data: Optional error details
+        :return: Response dict
         """
         return {"code": code, "msg": msg, "data": data}
 
 
-# 快捷函数
+# Shortcut functions
 def success_response(
     answer: str,
     sources: Optional[List[Dict]] = None,
     metadata: Optional[Dict] = None,
 ) -> Dict[str, Any]:
     """
-    成功响应 - 问答场景。
+    Success response - Q&A scenario.
 
-    :param answer: 答案文本
-    :param sources: 来源文档列表
-    :param metadata: 元数据 (如置信度、处理时间等)
-    :return: 响应字典
+    :param answer: Answer text
+    :param sources: Source document list
+    :param metadata: Metadata (e.g., confidence, processing time)
+    :return: Response dict
     """
     data = {"answer": answer}
     
@@ -70,32 +70,32 @@ def success_response(
 
 def error_response(
     code: int = 2000,
-    msg: str = "Agent 服务错误",
+    msg: str = "Agent service error",
     error_detail: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
-    错误响应。
+    Error response.
 
-    :param code: 错误码
-    :param msg: 错误消息
-    :param error_detail: 错误详情
-    :return: 响应字典
+    :param code: Error code
+    :param msg: Error message
+    :param error_detail: Error details
+    :return: Response dict
     """
     data = {"error_detail": error_detail} if error_detail else None
     return AgentResponse.error(code=code, msg=msg, data=data)
 
 
-# 错误码常量 (与 Server 保持一致)
+# Error code constants (consistent with Server)
 class AgentErrorCode:
-    """Agent 错误码常量。"""
+    """Agent error code constants."""
     
     SUCCESS = 0
-    AGENT_ERROR = 2000  # Agent 通用错误
-    RAG_RETRIEVAL_ERROR = 2001  # RAG 检索失败
-    LLM_CALL_ERROR = 2002  # LLM 调用失败
-    VECTOR_DB_ERROR = 2003  # 向量数据库错误
-    EMBEDDING_ERROR = 2004  # Embedding 生成失败
-    NO_RELEVANT_RESULTS = 2005  # 无相关结果
-    QUESTION_FORMAT_ERROR = 2006  # 问题格式错误
-    AGENT_TIMEOUT = 2007  # Agent 处理超时
-    AGENT_INITIALIZATION_ERROR = 2008  # Agent 初始化失败
+    AGENT_ERROR = 2000  # Agent general error
+    RAG_RETRIEVAL_ERROR = 2001  # RAG retrieval failed
+    LLM_CALL_ERROR = 2002  # LLM call failed
+    VECTOR_DB_ERROR = 2003  # Vector database error
+    EMBEDDING_ERROR = 2004  # Embedding generation failed
+    NO_RELEVANT_RESULTS = 2005  # No relevant results
+    QUESTION_FORMAT_ERROR = 2006  # Question format error
+    AGENT_TIMEOUT = 2007  # Agent processing timeout
+    AGENT_INITIALIZATION_ERROR = 2008  # Agent initialization failed

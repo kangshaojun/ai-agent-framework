@@ -218,10 +218,10 @@ class ServiceTicketAgent:
             try:
                 source_docs = self._search_similar_documents(question)
             except Exception as e:
-                print(f"检索失败: {e}")
+                print(f"Retrieval failed: {e}")
                 return error_response(
                     code=AgentErrorCode.RAG_RETRIEVAL_ERROR,
-                    msg="向量检索失败",
+                    msg="Vector retrieval failed",
                     error_detail=str(e)
                 )
             
@@ -256,10 +256,10 @@ class ServiceTicketAgent:
             try:
                 answer = qa_chain.invoke(question)
             except Exception as e:
-                print(f"LLM 调用失败: {e}")
+                print(f"LLM call failed: {e}")
                 return error_response(
                     code=AgentErrorCode.LLM_CALL_ERROR,
-                    msg="AI 模型调用失败",
+                    msg="AI model call failed",
                     error_detail=str(e)
                 )
             
@@ -288,7 +288,7 @@ class ServiceTicketAgent:
             print(error_msg)
             return error_response(
                 code=AgentErrorCode.AGENT_ERROR,
-                msg="Agent 服务错误",
+                msg="Agent service error",
                 error_detail=str(e)
             )
     
@@ -335,12 +335,12 @@ class ServiceTicketAgent:
             try:
                 source_docs = self._search_similar_documents(question)
             except Exception as e:
-                print(f"检索失败: {e}")
+                print(f"Retrieval failed: {e}")
                 yield {
                     "type": "error",
                     "data": {
                         "code": AgentErrorCode.RAG_RETRIEVAL_ERROR,
-                        "msg": "向量检索失败",
+                        "msg": "Vector retrieval failed",
                         "error_detail": str(e)
                     }
                 }
@@ -429,12 +429,12 @@ class ServiceTicketAgent:
                 }
                 
             except Exception as e:
-                print(f"LLM 流式调用失败: {e}")
+                print(f"LLM streaming call failed: {e}")
                 yield {
                     "type": "error",
                     "data": {
                         "code": AgentErrorCode.LLM_CALL_ERROR,
-                        "msg": "AI 模型调用失败",
+                        "msg": "AI model call failed",
                         "error_detail": str(e)
                     }
                 }
@@ -446,7 +446,7 @@ class ServiceTicketAgent:
                 "type": "error",
                 "data": {
                     "code": AgentErrorCode.AGENT_ERROR,
-                    "msg": "Agent 服务错误",
+                    "msg": "Agent service error",
                     "error_detail": str(e)
                 }
             }
