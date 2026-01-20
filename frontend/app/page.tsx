@@ -122,7 +122,7 @@ export default function HomePage() {
               On-Premise Solutions for Data-Sensitive Industries
             </p>
             <p className="text-base text-gray-7 mb-12 max-w-3xl mx-auto">
-              Deploy AI-powered solutions within your own infrastructure. Designed for banking, healthcare, insurance, government, education, legal services, and other data-sensitive industries. Your data stays secure and compliant.
+              Deploy AI-powered solutions within your own infrastructure. Designed for banking, healthcare, insurance, education, legal services, and other data-sensitive industries. Your data stays secure and compliant.
             </p>
 
             {/* CTA Button */}
