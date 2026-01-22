@@ -70,7 +70,7 @@ def success_response(
 
 def error_response(
     code: int = 2000,
-    msg: str = "Agent service error",
+    msg: str = "Agent 服务错误",
     error_detail: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
