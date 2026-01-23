@@ -14,13 +14,41 @@ class UserCreate(BaseModel):
     password: str
     full_name: str | None = None
 
+    @field_validator("username")
+    @classmethod
+    def validate_username(cls, v: str) -> str:
+        """Username validation."""
+        if not v or len(v.strip()) == 0:
+            raise ValueError("Username cannot be empty")
+        if len(v) < 3:
+            raise ValueError("Username must be at least 3 characters")
+        if len(v) > 50:
+            raise ValueError("Username cannot exceed 50 characters")
+        if not re.match(r"^[a-zA-Z0-9_]+$", v):
+            raise ValueError("Username can only contain letters, numbers, and underscores")
+        return v.strip()
+
     @field_validator("email")
     @classmethod
     def validate_email(cls, v: str) -> str:
-        """简单的邮箱格式验证."""
+        """Email format validation."""
+        if not v or len(v.strip()) == 0:
+            raise ValueError("Email cannot be empty")
         email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         if not re.match(email_pattern, v):
-            raise ValueError("邮箱格式不正确")
+            raise ValueError("Invalid email format")
+        return v.strip().lower()
+
+    @field_validator("password")
+    @classmethod
+    def validate_password(cls, v: str) -> str:
+        """Password strength validation."""
+        if not v:
+            raise ValueError("Password cannot be empty")
+        if len(v) < 6:
+            raise ValueError("Password must be at least 6 characters")
+        if len(v) > 128:
+            raise ValueError("Password cannot exceed 128 characters")
         return v
 
 
@@ -71,10 +99,10 @@ class UserUpdate(BaseModel):
     @field_validator("email")
     @classmethod
     def validate_email(cls, v: str | None) -> str | None:
-        """简单的邮箱格式验证."""
+        """Email format validation."""
         if v is None:
             return v
         email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         if not re.match(email_pattern, v):
-            raise ValueError("邮箱格式不正确")
+            raise ValueError("Invalid email format")
         return v

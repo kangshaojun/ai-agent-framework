@@ -4,6 +4,16 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { register } from '@/services/auth'
 import { BotIcon } from '@/ui/Icons'
+import Input from '@/ui/Input'
+import { INPUT_PRESETS } from '@/ui/InputPresets'
+import { validateField } from '@/utils/validation'
+
+interface FieldErrors {
+  username: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -14,21 +24,59 @@ export default function RegisterPage() {
     confirmPassword: '',
     full_name: '',
   })
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = e.target
+    setTouched({ ...touched, [name]: true })
+    
+    const error = validateField(name, formData[name as keyof typeof formData], { password: formData.password })
+    setFieldErrors({ ...fieldErrors, [name]: error })
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+
+    if (touched[name]) {
+      const error = validateField(name, value, { password: formData.password })
+      setFieldErrors({ ...fieldErrors, [name]: error })
+    }
+
+    if (name === 'password' && touched.confirmPassword && formData.confirmPassword) {
+      const confirmError = validateField('confirmPassword', formData.confirmPassword, { password: value })
+      setFieldErrors({ ...fieldErrors, [name]: '', confirmPassword: confirmError })
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
 
-    // 验证密码
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match')
-      return
+    const errors: FieldErrors = {
+      username: validateField('username', formData.username),
+      email: validateField('email', formData.email),
+      password: validateField('password', formData.password),
+      confirmPassword: validateField('confirmPassword', formData.confirmPassword, { password: formData.password }),
     }
 
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters')
+    setFieldErrors(errors)
+    setTouched({
+      username: true,
+      email: true,
+      password: true,
+      confirmPassword: true,
+    })
+
+    if (Object.values(errors).some(err => err !== '')) {
       return
     }
 
@@ -42,7 +90,6 @@ export default function RegisterPage() {
         full_name: formData.full_name || undefined,
       })
 
-      // 注册成功，跳转到登录页
       alert('Registration successful! Please sign in')
       router.push('/login')
     } catch (err) {
@@ -50,13 +97,6 @@ export default function RegisterPage() {
     } finally {
       setLoading(false)
     }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
   }
 
   return (
@@ -73,111 +113,74 @@ export default function RegisterPage() {
 
         {/* Register Form */}
         <div className="bg-white rounded-2xl shadow-md p-8">
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-4" onSubmit={handleSubmit} noValidate>
             {error && (
               <div className="rounded-lg bg-red-1 border border-red-5 p-4">
                 <div className="text-sm text-red-6">{error}</div>
               </div>
             )}
 
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-10 mb-2"
-              >
-                Username <span className="text-red-6">*</span>
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="Enter your username"
-                value={formData.username}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
+            <Input
+              id="username"
+              name="username"
+              {...INPUT_PRESETS.username}
+              value={formData.username}
+              error={fieldErrors.username}
+              touched={touched.username}
+              required
+              disabled={loading}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-10 mb-2"
-              >
-                Email <span className="text-red-6">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
+            <Input
+              id="email"
+              name="email"
+              {...INPUT_PRESETS.email}
+              value={formData.email}
+              error={fieldErrors.email}
+              touched={touched.email}
+              required
+              disabled={loading}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
-            <div>
-              <label
-                htmlFor="full_name"
-                className="block text-sm font-medium text-gray-10 mb-2"
-              >
-                Full Name <span className="text-gray-7 text-xs">(Optional)</span>
-              </label>
-              <input
-                id="full_name"
-                name="full_name"
-                type="text"
-                className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="Enter your full name"
-                value={formData.full_name}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
+            <Input
+              id="full_name"
+              name="full_name"
+              {...INPUT_PRESETS.fullName}
+              label="Full Name (Optional)"
+              value={formData.full_name}
+              disabled={loading}
+              onChange={handleChange}
+            />
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-10 mb-2"
-              >
-                Password <span className="text-red-6">*</span>
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="At least 6 characters"
-                value={formData.password}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
+            <Input
+              id="password"
+              name="password"
+              {...INPUT_PRESETS.password}
+              value={formData.password}
+              error={fieldErrors.password}
+              touched={touched.password}
+              required
+              disabled={loading}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-10 mb-2"
-              >
-                Confirm Password <span className="text-red-6">*</span>
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-                className="w-full px-4 py-3 border border-gray-5 rounded-lg text-gray-10 placeholder-gray-7 focus:outline-none focus:ring-2 focus:ring-blue-6 focus:border-transparent transition-all"
-                placeholder="Enter password again"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                disabled={loading}
-              />
-            </div>
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              {...INPUT_PRESETS.confirmPassword}
+              value={formData.confirmPassword}
+              error={fieldErrors.confirmPassword}
+              touched={touched.confirmPassword}
+              required
+              disabled={loading}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
             <button
               type="submit"
