@@ -3,7 +3,7 @@
 只演示基本的ask功能
 """
 import time
-from agent import ServiceTicketAgent
+from agent import SupportAgent
 
 
 def demo_basic_qa():
@@ -12,7 +12,7 @@ def demo_basic_qa():
     print("🚀 初始化客服工单智能助手...")
     print("=" * 60)
 
-    agent = ServiceTicketAgent()
+    agent = SupportAgent()
     
     print("\n📋 开始智能问答演示")
     print("=" * 60)
@@ -47,7 +47,7 @@ def interactive_mode():
     print("💬 客服工单智能助手交互模式 (输入 'quit' 退出)")
     print("=" * 60)
     
-    agent = ServiceTicketAgent()
+    agent = SupportAgent()
     print("✅ 客服智能助手已就绪，可以开始提问")
     
     while True:

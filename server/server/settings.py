@@ -9,6 +9,9 @@ from typing import Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from yarl import URL
 
+# 获取当前文件所在目录
+BASE_DIR = Path(__file__).parent
+
 TEMP_DIR = Path(gettempdir())
 
 
@@ -46,6 +49,8 @@ class Settings(BaseSettings):
     redis_pass: Optional[str] = "server"
     redis_base: Optional[int] = None
 
+    agent_base_url: str = "http://localhost:8001"
+
     @property
     def db_url(self) -> URL:
         return URL.build(
@@ -73,7 +78,7 @@ class Settings(BaseSettings):
 
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=BASE_DIR.parent / ".env",
         env_prefix="SERVER_",
         env_file_encoding="utf-8",
     )

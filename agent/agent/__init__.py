@@ -3,7 +3,7 @@
 提供客服工单知识库智能问答功能
 """
 
-from .ticket_agent import ServiceTicketAgent
+from .support_agent import SupportAgent
 from .response import (
     AgentResponse,
     AgentErrorCode,
@@ -12,7 +12,7 @@ from .response import (
 )
 
 __all__ = [
-    "ServiceTicketAgent",
+    "SupportAgent",
     "AgentResponse",
     "AgentErrorCode",
     "success_response",

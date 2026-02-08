@@ -17,7 +17,7 @@ from . import config
 from .response import success_response, error_response, AgentErrorCode
 
 
-class ServiceTicketAgent:
+class SupportAgent:
     """客服工单智能助手"""
     
     def __init__(self, data_path: str = None):

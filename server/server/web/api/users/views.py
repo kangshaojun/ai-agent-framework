@@ -46,12 +46,12 @@ async def register_user(
     # 检查用户名是否已存在
     existing_user = await user_dao.get_user_by_username(user_data.username)
     if existing_user:
-        raise HTTPException(status_code=400, detail="Username already exists")
+        raise HTTPException(status_code=400, detail="用户名已存在")
 
     # 检查邮箱是否已存在
     existing_email = await user_dao.get_user_by_email(user_data.email)
     if existing_email:
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(status_code=400, detail="邮箱已被注册")
 
     # 创建用户
     hashed_password = get_password_hash(user_data.password)
@@ -61,7 +61,7 @@ async def register_user(
         hashed_password=hashed_password,
         full_name=user_data.full_name,
     )
-    return ApiResponse.success(data=UserResponse.model_validate(user), msg="Registration successful")
+    return ApiResponse.success(data=UserResponse.model_validate(user), msg="注册成功")
 
 
 @router.post("/login", response_model=ApiResponse[TokenResponse])
@@ -79,15 +79,15 @@ async def login_user(
     # 查找用户
     user = await user_dao.get_user_by_username(login_data.username)
     if not user:
-        raise HTTPException(status_code=401, detail="Invalid username or password")
+        raise HTTPException(status_code=401, detail="用户名或密码错误")
 
     # 验证密码
     if not verify_password(login_data.password, user.hashed_password):
-        raise HTTPException(status_code=401, detail="Invalid username or password")
+        raise HTTPException(status_code=401, detail="用户名或密码错误")
 
     # 检查用户是否激活
     if not user.is_active:
-        raise HTTPException(status_code=403, detail="User account is disabled")
+        raise HTTPException(status_code=403, detail="用户已被禁用")
 
     # 生成 tokens
     access_token = create_access_token(data={"user_id": user.id, "username": user.username})
@@ -98,7 +98,7 @@ async def login_user(
         refresh_token=refresh_token,
         expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60,  # 转换为秒
     )
-    return ApiResponse.success(data=token_data, msg="Login successful")
+    return ApiResponse.success(data=token_data, msg="登录成功")
 
 
 @router.post("/refresh", response_model=ApiResponse[TokenResponse])
@@ -115,12 +115,12 @@ async def refresh_token(
     """
     user_id = payload.get("user_id")
     if not user_id:
-        raise HTTPException(status_code=401, detail="Invalid refresh token")
+        raise HTTPException(status_code=401, detail="无效的 refresh token")
 
     # 验证用户是否存在且激活
     user = await user_dao.get_user_by_id(user_id)
     if not user or not user.is_active:
-        raise HTTPException(status_code=401, detail="User not found or disabled")
+        raise HTTPException(status_code=401, detail="用户不存在或已被禁用")
 
     # 生成新的 tokens
     access_token = create_access_token(data={"user_id": user.id, "username": user.username})
@@ -131,7 +131,7 @@ async def refresh_token(
         refresh_token=refresh_token,
         expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
-    return ApiResponse.success(data=token_data, msg="Token refreshed")
+    return ApiResponse.success(data=token_data, msg="刷新成功")
 
 
 @router.get("/me", response_model=ApiResponse[UserResponse])
@@ -181,7 +181,7 @@ async def get_user(
     """
     user = await user_dao.get_user_by_id(user_id)
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="用户不存在")
     return UserResponse.model_validate(user)
 
 
@@ -206,7 +206,7 @@ async def update_user(
         is_active=user_data.is_active,
     )
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="用户不存在")
     return UserResponse.model_validate(user)
 
 
@@ -223,4 +223,4 @@ async def delete_user(
     """
     deleted = await user_dao.delete_user(user_id)
     if not deleted:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="用户不存在")

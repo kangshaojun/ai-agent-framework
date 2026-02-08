@@ -11,10 +11,10 @@ import asyncio
 from typing import Optional
 import uvicorn
 
-from agent import ServiceTicketAgent
+from agent import SupportAgent
 
 app = FastAPI(
-    title="Service Ticket Agent",
+    title="Service Agent",
     description="提供客服工单知识库 AI Agent 的流式对话接口，专注服务内部 Server",
     version="1.0.0"
 )
@@ -40,15 +40,15 @@ class ChatRequest(BaseModel):
 # Agent 实例管理
 # ============================================
 
-agent_instance: Optional[ServiceTicketAgent] = None
+agent_instance: Optional[SupportAgent] = None
 
-def get_agent() -> ServiceTicketAgent:
+def get_agent() -> SupportAgent:
     """获取或创建 Agent 实例（单例模式）"""
     global agent_instance
     if agent_instance is None:
-        print("🔧 初始化 ServiceTicketAgent...")
-        agent_instance = ServiceTicketAgent()
-        print("✅ ServiceTicketAgent 初始化完成")
+        print("🔧 初始化 SupportAgent...")
+        agent_instance = SupportAgent()
+        print("✅ SupportAgent 初始化完成")
     return agent_instance
 
 

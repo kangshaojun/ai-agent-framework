@@ -19,6 +19,7 @@ from server.web.api.conversations.schemas import (
     MessageResponse,
 )
 from server.web.api.response import success_response
+from server.settings import settings
 
 import httpx
 
@@ -259,8 +260,6 @@ async def get_messages(
 # Helper Functions for Stream Message
 # ============================================
 
-AGENT_BASE_URL = "http://localhost:8001"
-
 
 async def _generate_conversation_title(
     agent_base_url: str,
@@ -322,7 +321,7 @@ async def _handle_done_event(
     # 如果是第一条消息，生成标题
     message_count = await message_dao.count_conversation_messages(conversation_id)
     if message_count == 2:
-        title = await _generate_conversation_title(AGENT_BASE_URL, user_question)
+        title = await _generate_conversation_title(settings.agent_base_url, user_question)
         await conversation_dao.update_conversation_title(
             conversation_id=conversation_id,
             user_id=current_user.id,
@@ -432,7 +431,7 @@ async def create_message_stream(
             async with httpx.AsyncClient(timeout=60.0) as client:
                 async with client.stream(
                     "POST",
-                    f"{AGENT_BASE_URL}/stream",
+                    f"{settings.agent_base_url}/stream",
                     json={"question": message_data.content, "stream": True}
                 ) as response:
                     

@@ -65,7 +65,7 @@ export default function RegisterPage() {
       username: validateField('username', formData.username),
       email: validateField('email', formData.email),
       password: validateField('password', formData.password),
-      confirmPassword: validateField('confirmPassword', formData.confirmPassword, { password: formData.password }),
+      confirmPassword: validateField('confirmPassword', formData.confirmPassword),
     }
 
     setFieldErrors(errors)
