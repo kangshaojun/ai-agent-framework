@@ -24,7 +24,13 @@ export interface ApiResponse<T = unknown> {
   data: T | null
 }
 
-export type Result<T> = ApiResponse<T> | null
+/**
+ * HTTP 请求方法类型
+ * 
+ * 注意：响应拦截器会自动处理 code !== 0 的情况，并返回 data.data
+ * 所以这些方法直接返回 T，不需要再判断 code
+ */
+export type HttpMethod = <T = unknown>(url: string, data?: unknown) => Promise<T>
 
 // 创建 axios 实例
 const request = axios.create({
@@ -71,6 +77,9 @@ request.interceptors.response.use(
       if (!isSuccess(data.code)) {
         return Promise.reject(new Error(data.msg || '请求失败'))
       }
+      
+      // ✅ 成功时只返回 data 字段，上层不再需要做 code 判断
+      return data.data
     }
     
     return response.data
@@ -144,30 +153,31 @@ request.interceptors.response.use(
   }
 )
 
-// 封装常用方法
+// 封装常用方法 - 拦截器已处理 code 判断，直接返回 data
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const httpGet = <T = unknown>(url: string, params?: any): Promise<Result<T>> => {
-  return request.get(url, { params })
+export const httpGet = <T = unknown>(url: string, params?: any): Promise<T> => {
+  return request.get(url, { params }) as Promise<T>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const httpPost = <T = unknown>(url: string, data?: any): Promise<Result<T>> => {
-  return request.post(url, data)
+export const httpPost = <T = unknown>(url: string, data?: any): Promise<T> => {
+  return request.post(url, data) as Promise<T>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const httpPut = <T = unknown>(url: string, data?: any): Promise<Result<T>> => {
-  return request.put(url, data)
+export const httpPut = <T = unknown>(url: string, data?: any): Promise<T> => {
+  return request.put(url, data) as Promise<T>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const httpDelete = <T = unknown>(url: string, params?: any): Promise<Result<T>> => {
-  return request.delete(url, { params })
+export const httpDelete = <T = unknown>(url: string, params?: any): Promise<T> => {
+  return request.delete(url, { params }) as Promise<T>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const httpPatch = <T = unknown>(url: string, data?: any): Promise<Result<T>> => {
-  return request.patch(url, data)
+export const httpPatch = <T = unknown>(url: string, data?: any): Promise<T> => {
+  return request.patch(url, data) as Promise<T>
 }
 
 export default request

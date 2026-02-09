@@ -7,12 +7,8 @@ export interface HelpContent {
 }
 
 /**
- * Get help center content
+ * 获取帮助中心内容
  */
 export const getHelpContent = async (): Promise<HelpContent> => {
-  const response = await httpGet<HelpContent>('/help/content')
-  if (response?.code === 0 && response.data) {
-    return response.data
-  }
-  throw new Error(response?.msg || '获取帮助内容失败')
+  return httpGet<HelpContent>('/help/content')
 }

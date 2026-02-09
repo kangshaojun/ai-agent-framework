@@ -39,38 +39,29 @@ export type RegisterResponse = User
 
 /**
  * 用户登录
+ * 
+ * 注意：httpPost 拦截器已处理 code 判断，失败会自动抛错
  */
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const response = await httpPost<LoginResponse>('/users/login', data)
-  if (response?.data) {
-    // 保存 token 到 localStorage
-    localStorage.setItem('access_token', response.data.access_token)
-    localStorage.setItem('refresh_token', response.data.refresh_token)
-    return response.data
-  }
-  throw new Error(response?.msg || '登录失败')
+  const result = await httpPost<LoginResponse>('/users/login', data)
+  // 保存 token
+  localStorage.setItem('access_token', result.access_token)
+  localStorage.setItem('refresh_token', result.refresh_token)
+  return result
 }
 
 /**
  * 用户注册
  */
 export const register = async (data: RegisterRequest): Promise<RegisterResponse> => {
-  const response = await httpPost<RegisterResponse>('/users/register', data)
-  if (response?.data) {
-    return response.data
-  }
-  throw new Error(response?.msg || '注册失败')
+  return httpPost<RegisterResponse>('/users/register', data)
 }
 
 /**
  * 获取当前用户信息
  */
 export const getCurrentUser = async (): Promise<User> => {
-  const response = await httpGet<User>('/users/me')
-  if (response?.data) {
-    return response.data
-  }
-  throw new Error(response?.msg || '获取用户信息失败')
+  return httpGet<User>('/users/me')
 }
 
 /**
