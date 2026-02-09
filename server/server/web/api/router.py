@@ -2,7 +2,7 @@
 
 from fastapi.routing import APIRouter
 
-from server.web.api import conversations, docs, monitoring, users
+from server.web.api import conversations, docs, help, monitoring, users
 
 api_router = APIRouter()
 
@@ -17,3 +17,6 @@ api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(
     conversations.router, prefix="/conversations", tags=["conversations"]
 )
+
+# Help center routes - documentation and support
+api_router.include_router(help.router, prefix="/help", tags=["help"])
