@@ -4,13 +4,6 @@ An enterprise-grade AI Agent framework built with modern technologies. This proj
 
 ---
 
-## 📚 Learning Resources
-
-- **Video Tutorial (B站):** [AI Agent Framework in Action](https://www.bilibili.com/cheese/play/ep2187729)
-- **Video Tutorial (Udemy):** [AI Agent Framework Course](https://www.udemy.com/course/ai-agent-framework/)
-
----
-
 ## 📝 Changelog
 - **Continuously updating...**
 
